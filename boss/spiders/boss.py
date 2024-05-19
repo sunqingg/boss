@@ -4,13 +4,11 @@ import random
 import scrapy
 from lxml import etree
 from scrapy import Request
-from urllib.parse import urljoin
+
 
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.edge.service import Service
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from boss.items import BossItem
 
@@ -28,7 +26,6 @@ class BsSpider(scrapy.Spider):
         prefs = {"profile.managed_default_content_settings.images": 2}
         chrome_options.add_experimental_option("prefs", prefs)
 
-
         ser = Service()
         ser.path = r"C:\Program Files (x86)\Google\Chrome\Application\chromedriver.exe"  # 替换为实际路径
         # 启动 Chrome 浏览器
@@ -40,7 +37,6 @@ class BsSpider(scrapy.Spider):
             yield Request(url)
 
     def parse(self, response):
-
 
         # 打开网页
         self.driver.get(response.url)
@@ -70,9 +66,9 @@ class BsSpider(scrapy.Spider):
             # 执行不是parse方法了
             yield Request(new_url, callback=self.parse_detail, cb_kwargs={'item': boss_item, 'url': new_url})
 
-            yield boss_item
-    def parse_detail(self, response, **kwargs):
+            # yield boss_item
 
+    def parse_detail(self, response, **kwargs):
 
         boss_item = kwargs['item']
         self.driver.get(kwargs['url'])

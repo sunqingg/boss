@@ -15,7 +15,7 @@ class BossPipeline:
 
 class DbPipeline:
     def __init__(self):
-        self.conn = pymysql.connect(host="192.168.2.21", port=3306, user="root", password="root", database="sun")
+        self.conn = pymysql.connect(host="192.168.2.21", port=3306, user="root", password="root", database="sun", charset="utf8mb4")
         self.cursor = self.conn.cursor()
         self.data = []
 
